@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ServiceRepairComputer.props" />
+</Project>

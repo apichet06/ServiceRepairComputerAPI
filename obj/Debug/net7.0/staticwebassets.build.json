@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "OkI5E4P29pNxo3R2pTWa4lSvvYQD1BDkkDJ5XwyjYY4=",
+  "Source": "ServiceRepairComputer",
+  "BasePath": "_content/ServiceRepairComputer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
