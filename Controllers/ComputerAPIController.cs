@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ServiceRepairComputer.Data;
 using ServiceRepairComputer.Models;
 using ServiceRepairComputer.Models.Dto;
+using System.Globalization;
 
 namespace ServiceRepairComputer.Controllers
 {
@@ -53,8 +54,8 @@ namespace ServiceRepairComputer.Controllers
 
                 Computer obj = _mapper.Map<Computer>(computer);
                 string nexID = await GenerateId(); 
-                obj.ComputerId = nexID;
-                _db.Computers.Add(obj);
+                obj.ComputerId = nexID; 
+                _db.Add(obj);
                await _db.SaveChangesAsync();
                 _response.Result = _mapper.Map<ComputerDto>(obj);
                 _response.Message = _message.InsertMessage;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceRepairComputer.Data;
 
@@ -11,9 +12,11 @@ using ServiceRepairComputer.Data;
 namespace ServiceRepairComputer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230826071305_addupdateIssues")]
+    partial class addupdateIssues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,27 +55,23 @@ namespace ServiceRepairComputer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CM_ID")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Contents")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("Content")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("EmployeeId")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("I_ID")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("Score")
+                    b.Property<string>("TechnicianId")
                         .HasMaxLength(10)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -191,12 +190,7 @@ namespace ServiceRepairComputer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("C_ID")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Comment")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ComputerId")
                         .HasMaxLength(10)
@@ -213,7 +207,7 @@ namespace ServiceRepairComputer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<DateTime?>("EndJobAt")
+                    b.Property<DateTime>("EndJobAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("I_ID")
@@ -224,13 +218,13 @@ namespace ServiceRepairComputer.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<DateTime?>("ReceiveAt")
+                    b.Property<DateTime>("ReceiveAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("SendJobAt")
+                    b.Property<DateTime>("SendJobAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("StartJobAt")
+                    b.Property<DateTime>("StartJobAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")

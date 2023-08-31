@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using ServiceRepairComputer.Data; 
 using ServiceRepairComputer.Models;
 using ServiceRepairComputer.Models.Dto;
+using System.Globalization;
+ 
+ 
 
 namespace ServiceRepairComputer.Controllers
 {
@@ -26,25 +29,27 @@ namespace ServiceRepairComputer.Controllers
 
         }
         [HttpGet]
-         public async Task<ResponseDto> Get()
+        [Route("{i_ID?}")]
+        public async Task<ResponseDto> Get(string? i_ID = null)
         {
             try
             {
-                IEnumerable<Comment> objList = await _db.Comments.ToListAsync();
-                _response.Result = _mapper.Map<IEnumerable<CommentDto>>(objList);
-  
-            }catch (Exception ex)
+                Comment? objList = await _db.Comments.FirstOrDefaultAsync(c => c.I_ID == i_ID);
+                _response.Result = _mapper.Map<CommentDto>(objList);
+            }
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = _message.an_error_occurred + ex.Message;
-
+           
             }
 
             return _response;
         }
 
+
         [HttpPost]
-        public async Task<ResponseDto> Post([FromBody] Comment comment) {
+        public async Task<ResponseDto> Post([FromForm] Comment comment) {
 
             try
             {
@@ -52,7 +57,8 @@ namespace ServiceRepairComputer.Controllers
                  
                 string NextID = await GenerateAutoId();
                 obj.CM_ID = NextID; 
-                _db.Comments.Add(obj);
+                  
+                _db.Add(obj);
                await _db.SaveChangesAsync();
                  
                 _response.Result = _mapper.Map<CommentDto>(obj); 
@@ -73,6 +79,8 @@ namespace ServiceRepairComputer.Controllers
         {
             try
             {
+ 
+
                 Comment? obj = await _db.Comments.FirstOrDefaultAsync(c=>c.Id == id)!;
 
                 if (obj == null)
@@ -81,9 +89,9 @@ namespace ServiceRepairComputer.Controllers
                     _response.Message = _message.Not_found;
                     return _response;
                 }
-
-                obj.Content = comment.Content;
-                obj.TechnicianId = comment.TechnicianId;
+                obj.Score = comment.Score;
+                obj.Contents = comment.Contents;
+                obj.EmployeeId = comment.EmployeeId;
                 obj.I_ID = comment.I_ID;
 
                 _db.Comments.Update(obj);
